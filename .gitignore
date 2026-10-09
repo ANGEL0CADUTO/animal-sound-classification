@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+.venv/
+.ipynb_checkpoints/
+.env
+.env.local
+data/
+cats_dogs_dolphins/
+*.wav
+*.keras
+*.h5
+outputs/
