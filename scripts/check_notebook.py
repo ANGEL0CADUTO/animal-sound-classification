@@ -6,6 +6,7 @@ import json
 import os
 from pathlib import Path
 import tempfile
+import shutil
 
 os.environ.setdefault("CUDA_VISIBLE_DEVICES", "-1")
 os.environ.setdefault("MPLBACKEND", "Agg")
@@ -62,9 +63,10 @@ def main():
                 for index in range(count):
                     rate = (8000, 16000, 44100)[index % 3]
                     times = np.arange(int(1.1 * rate)) / rate
-                    audio = 0.3 * np.sin(2 * np.pi * frequency * times)
+                    audio = 0.3 * np.sin(2 * np.pi * (frequency + index * 3 + (1 if split == "test" else 0)) * times)
                     sf.write(folder / f"{index:02d}.wav", audio, rate)
 
+        shutil.copyfile(root / 'data/train/dog/00.wav', root / 'data/test/dog/00.wav')
         previous = {key: os.environ.get(key) for key in ("ANIMAL_DATASET_DIR", "ANIMAL_OUTPUT_DIR")}
         os.environ["ANIMAL_DATASET_DIR"] = str(root / "data")
         os.environ["ANIMAL_OUTPUT_DIR"] = str(root / "models")
@@ -72,6 +74,8 @@ def main():
         try:
             for identifier in ("cell-06", "cell-08", "cell-12", "cell-14", "cell-17", "cell-19"):
                 run_cell(cells, identifier, namespace)
+            assert len(namespace["excluded_training_duplicates"]) == 1
+            assert len(namespace["data_paths"]["dog"]) == 9
             check_arrays(namespace, ("X_train_aug", "X_val", "X_test"), (16000, 1))
             for rate in (8000, 16000, 44100):
                 file = root / f"signal-{rate}.wav"
