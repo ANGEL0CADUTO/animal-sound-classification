@@ -1,0 +1,38 @@
+{
+  "date": "2026-10-11",
+  "archive_sha256": "5562727c2471372e21c738c95e4e683cd89ad844e2afd9a4b6a4b002015584f6",
+  "counts": {
+    "test/cat": 39,
+    "test/dog": 28,
+    "train/dog": 85,
+    "train/dolphin": 118,
+    "test/dolphin": 31,
+    "train/cat": 125
+  },
+  "recordings": 426,
+  "excluded_non_audio": [
+    "cats_dogs_dolphins/test/cats_dogs_dolphins - collegamento.lnk"
+  ],
+  "sample_rates": {
+    "16000": 277,
+    "192000": 146,
+    "44100": 3
+  },
+  "channels": {
+    "1": 426
+  },
+  "duration_range_seconds": [
+    0.078,
+    17.976
+  ],
+  "exact_pcm_duplicates": [
+    {
+      "paths": [
+        "cats_dogs_dolphins/train/dog/dog_barking_14.wav",
+        "cats_dogs_dolphins/test/dog/dog_barking_15.wav"
+      ],
+      "cross_split": true,
+      "cross_class": false
+    }
+  ]
+}
